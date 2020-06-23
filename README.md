@@ -1,48 +1,27 @@
-## Minimal Rust + WASM Example
+## Legion WASM Benchmark
 
-An extremely minimal Rust + WASM example that
-[works with GitHub pages](http://tuzz.github.io/minimal-rust-wasm).
-It demonstrates how to write to the DOM and how to call a JavaScript function
-from Rust. Hopefully this will serve as a helpful reference.
+This is a test page that can be used to measure how long it takes
+[Legion](https://github.com/tomGillen/legion) to create some entities and add
+components for a varying number of entities. I created this page because I'm
+seeing very different times between my 13" MacBook Pro 2017 (2.5GHz i7) and my
+11" iPad Pro 2018. You can run the benchmark
+[here](https://tuzz.github.io/legion-ecs-wasm-benchmark/).
 
-### Usage
+On the [PSPDFKit benchmark](https://pspdfkit.com/webassembly-benchmark/) my
+scores are:
 
-In one tab run:
+- MacBook Pro: 2512
+- iPad Pro: 1500
 
-```sh
-$ ./bin/setup
-$ ./bin/wasm_watch
-```
+This implies the iPad Pro is faster at WASM as a lower score is better.
 
-In another tab run:
+On this benchmark my combined times for ~2 million entities are:
 
-```sh
-$ ./bin/server
-```
+- MacBook Pro: ~118ms
+- iPad Pro: ~2676ms
 
-If you're not on a Mac, you'll need to install `binaryen` a different way.
-
-### Make a change
-
-Try changing "Hello, world!" to "Hello, foo!" in `src/wasm_main.rs`. The
-`./bin/wasm_watch` script should automatically rebuild the project and
-`./bin/server` should reload the web page once that's done. Neat!
-
-### Deploying
-
-To deploy to GitHub pages run:
-
-```sh
-$ ./bin/deploy
-```
-
-It will compile the project then copy `index.html`, `target/index.wasm` and
-`target/index.js` to a `tmp/` directory. This is then deployed to the gh-pages
-branch for the current git repository.
-
-### Documentation
-
-Now that you have a working Rust/WASM workflow, refer to
-[the book](https://rustwasm.github.io/book/) and the
-[web_sys](https://rustwasm.github.io/wasm-bindgen/api/web_sys/) crate for more
-information.
+In this benchmark, the iPad is ~23x slower than the MacBook so I've opened [an
+issue](https://github.com/TomGillen/legion/issues/158) on the Legion ECS
+project to try and understand why this is. For anyone wondering, this page was
+created using my [minimal-rust-wasm](https://github.com/tuzz/minimal-rust-wasm)
+template.
